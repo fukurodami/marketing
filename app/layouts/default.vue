@@ -2,7 +2,6 @@
 
 <template>
   <div>
-    <span>kal</span>
     <slot />
   </div>
 </template>
