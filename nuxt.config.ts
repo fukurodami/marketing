@@ -1,5 +1,3 @@
-import eslintPlugin from 'vite-plugin-eslint'
-
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   auth: {
@@ -7,12 +5,16 @@ export default defineNuxtConfig({
     provider: {
       type: 'authjs',
     },
-  },
-  sidebaseAuth: {
-    baseUrl: process.env.AUTH_ORIGIN || 'http://localhost:3000',
+    isEnabled: true,
+    disableServerSideAuth: false,
+    originEnvKey: 'AUTH_ORIGIN',
+    sessionRefresh: {
+      enablePeriodically: true,
+      enableOnWindowFocus: true,
+    },
   },
   devtools: { enabled: true },
-  modules: ['@pinia/nuxt', '@sidebase/nuxt-auth'],
+  modules: ['@pinia/nuxt', '@sidebase/nuxt-auth', '@nuxt/eslint'],
   typescript: {
     strict: true,
     typeCheck: true,
@@ -20,15 +22,5 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.scss'],
   build: {
     transpile: ['vuetify'],
-  },
-  vite: {
-    plugins: [
-      eslintPlugin({
-        failOnError: false,
-        failOnWarning: false,
-        emitWarning: true,
-        emitError: true,
-      }),
-    ],
   },
 })
